@@ -1,42 +1,20 @@
-# irb-cookbook
+irb
+===
 
-TODO: Enter the cookbook description here.
-
-## Supported Platforms
-
-TODO: List your supported platforms.
-
-## Attributes
-
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['irb']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+Configure IRB using Chef.
 
 ## Usage
 
-### irb::default
+```ruby
+include_recipe 'irb'
 
-Include `irb` in your node's `run_list`:
-
-```json
-{
-  "run_list": [
-    "recipe[irb::default]"
-  ]
-}
+irb_config 'my-user' do
+  home_directory '/home/my-user'
+end
 ```
 
-## License and Authors
+This will drop in an `.irbrc` file in the home directory of the user. This file will configure IRB to do the following:
 
-Author:: YOUR_NAME (<YOUR_EMAIL>)
+* In a Rails console, show the prompt as red when in production mode
+* Keep 100 commands in history
+
