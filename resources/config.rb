@@ -1,5 +1,9 @@
 actions :configure
 default_action :configure
 
-attribute :user, kind_of: String, required: true, name_attribute: true
+attribute :name, kind_of: String
 attribute :home_directory, kind_of: String, required: true
+
+def user
+  name
+end
