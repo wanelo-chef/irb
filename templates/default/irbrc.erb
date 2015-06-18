@@ -1,0 +1,29 @@
+require 'irb/completion'
+require 'irb/ext/save-history'
+
+IRB.conf[:SAVE_HISTORY] = 100
+IRB.conf[:HISTORY_FILE] = "#{ENV['HOME']}/.irb-save-history"
+IRB.conf[:PROMPT_MODE] = :SIMPLE
+
+def console_environment
+  ENV['RAILS_ENV'] || (defined?(Rails) && Rails.env)
+end
+
+def colorized_prompt(text)
+  color = case console_environment
+    when 'production' then 31
+    when 'development' then 32
+    else '33'
+  end
+  "\033[#{color}m#{text}\033[0m"
+end
+
+IRB.conf[:PROMPT][:CUSTOM] = {
+  :PROMPT_I => colorized_prompt(">> "),
+  :PROMPT_S => colorized_prompt("%l>> "),
+  :PROMPT_C => colorized_prompt(">> "),
+  :PROMPT_N => colorized_prompt(">> "),
+  :RETURN => "=> %s\n"
+}
+IRB.conf[:PROMPT_MODE] = :CUSTOM
+IRB.conf[:AUTO_INDENT] = false
